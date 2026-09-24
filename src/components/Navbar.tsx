@@ -371,6 +371,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenC
 
           {/* Right Action Tools: Search & Consolidated Theme Popover */}
           <div className="flex items-center space-x-2">
+
+            {/* Quick README Studio Access */}
+            <button
+              onClick={() => handleSelectTab('opensource')}
+              className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-mono font-semibold transition-all cursor-pointer hover:border-emerald-500/50 hover:bg-emerald-500/10"
+              style={{
+                backgroundColor: activeTab === 'opensource' ? 'rgba(16, 185, 129, 0.15)' : currentTheme.palette.surfaceRaised,
+                borderColor: activeTab === 'opensource' ? 'rgba(16, 185, 129, 0.4)' : currentTheme.palette.border,
+                color: activeTab === 'opensource' ? '#10B981' : currentTheme.palette.textPrimary,
+              }}
+              title="GitHub README Studio & Publisher"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden md:inline">README.md</span>
+            </button>
             
             {/* Quick Command Palette Search */}
             <button

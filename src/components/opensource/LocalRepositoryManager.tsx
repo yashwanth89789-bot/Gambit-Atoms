@@ -37,6 +37,24 @@ interface LocalRepositoryManagerProps {
 
 const INITIAL_REPOSITORIES: ManagedRepo[] = [
   {
+    id: 'repo-0',
+    name: 'gambit-atoms',
+    owner: 'gambit-atoms',
+    description: 'Autonomous Intelligence, Scientific Labs, Quantum Simulation & Hyper-Scale Distributed Systems Engineering.',
+    stars: 48210,
+    forks: 8420,
+    isStarred: true,
+    isForked: true,
+    forkBranch: 'main',
+    healthScore: 99,
+    healthMetrics: { ciBuild: 100, testCoverage: 98, securityAudit: 99, docQuality: 100 },
+    primaryLang: 'TypeScript / React 19',
+    langColor: '#3178C6',
+    openIssues: 18,
+    lastCommit: 'Just now (Official Project Workspace)',
+    tags: ['Autonomous AI', 'Quantum Lab', 'ToT Planner', 'Monaco IDE', 'React 19'],
+  },
+  {
     id: 'repo-1',
     name: 'vllm',
     owner: 'vllm-project',

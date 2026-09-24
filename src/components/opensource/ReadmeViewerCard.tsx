@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import { useAdaptiveTheme } from '../../context/ThemeContext';
 import { MOCK_README_MAP, RepoReadme } from '../../data/mockReadmeData';
+import { ReadmeInteractiveDesigner } from './ReadmeInteractiveDesigner';
+import { GitHubAddReadmeModal } from './GitHubAddReadmeModal';
 
 interface ReadmeViewerCardProps {
   selectedRepo: string;
@@ -37,8 +39,8 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
 }) => {
   const { currentTheme } = useAdaptiveTheme();
   
-  // Interactive view modes: 'preview' (rendered), 'split' (side-by-side editor), 'raw' (plain text)
-  const [viewMode, setViewMode] = useState<'preview' | 'split' | 'raw'>('preview');
+  // Interactive view modes: 'preview' (rendered), 'designer' (visual section builder), 'split' (side-by-side editor), 'raw' (plain text)
+  const [viewMode, setViewMode] = useState<'preview' | 'designer' | 'split' | 'raw'>('preview');
   
   // Editable markdown buffer initialized from props or mock
   const [currentMarkdown, setCurrentMarkdown] = useState<string>('');
@@ -65,6 +67,7 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
 
   // Interactive Commit Modal
   const [showCommitModal, setShowCommitModal] = useState<boolean>(false);
+  const [showGitHubAddReadmeModal, setShowGitHubAddReadmeModal] = useState<boolean>(false);
   const [commitMessage, setCommitMessage] = useState<string>('docs: update production readiness checklist & benchmarks');
   const [commitStatus, setCommitStatus] = useState<'idle' | 'committing' | 'committed'>('idle');
 
@@ -416,6 +419,16 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
             <span>Shields</span>
           </button>
 
+          {/* Add to GitHub Fast Publisher Button */}
+          <button
+            onClick={() => setShowGitHubAddReadmeModal(true)}
+            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all flex items-center space-x-1.5 cursor-pointer shadow-xs"
+            title="Publish this README directly to your GitHub repository"
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Add to GitHub</span>
+          </button>
+
           {/* Commit Button */}
           <button
             onClick={() => setShowCommitModal(true)}
@@ -483,6 +496,48 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
         </div>
       )}
 
+      {/* 2.5 GitHub "Add a README" Callout Banner */}
+      {isExpanded && (
+        <div 
+          className="px-5 py-3 border-b flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs bg-emerald-950/20 border-emerald-500/20"
+        >
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="font-bold text-emerald-400 font-sans">GitHub Repository Setup</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-medium">
+                  Ready to Publish
+                </span>
+              </div>
+              <p className="text-[11px] opacity-75 mt-0.5">
+                Ready to add this README to your GitHub repo? Copy formatted markdown or follow our 3-step walkthrough.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
+            <button
+              onClick={handleCopyAll}
+              className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold font-mono text-[11px] flex items-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+            >
+              {copiedAll ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{copiedAll ? 'Copied!' : '1-Click Copy for GitHub'}</span>
+            </button>
+
+            <button
+              onClick={() => setShowGitHubAddReadmeModal(true)}
+              className="px-3 py-1.5 rounded-lg border border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-400 font-mono text-[11px] font-semibold flex items-center space-x-1.5 transition-all cursor-pointer"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>How to Add on GitHub</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 3. Interactive Mode Switcher & Metric Ribbon */}
       {isExpanded && (
         <div 
@@ -512,6 +567,20 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
             >
               <Eye className="w-3.5 h-3.5" />
               <span>Preview</span>
+            </button>
+
+            <button
+              onClick={() => setViewMode('designer')}
+              className={`px-3 py-1 rounded-md transition-all flex items-center space-x-1.5 cursor-pointer ${
+                viewMode === 'designer' ? 'font-bold shadow-2xs' : 'opacity-60 hover:opacity-100'
+              }`}
+              style={{
+                backgroundColor: viewMode === 'designer' ? currentTheme.palette.surfaceRaised : 'transparent',
+                color: viewMode === 'designer' ? currentTheme.palette.accent : currentTheme.palette.textPrimary,
+              }}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Interactive Designer</span>
             </button>
 
             <button
@@ -713,9 +782,17 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
         </div>
       )}
 
-      {/* 5. Main Content Area: Preview vs Split vs Raw */}
+      {/* 5. Main Content Area: Designer vs Preview vs Split vs Raw */}
       {isExpanded && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+        viewMode === 'designer' ? (
+          <ReadmeInteractiveDesigner
+            repoName={selectedRepo}
+            currentMarkdown={currentMarkdown}
+            onApplyMarkdown={(newMd) => handleMarkdownEdit(newMd)}
+            onSwitchToPreview={() => setViewMode('preview')}
+          />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
           
           {/* Quick-Jump Table of Contents & Navigation Sidebar (3 cols) */}
           <div 
@@ -1253,9 +1330,9 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
             )}
 
           </div>
-
         </div>
-      )}
+      )
+    )}
 
       {/* 6. Commit to GitHub Modal */}
       {showCommitModal && (
@@ -1362,6 +1439,14 @@ export const ReadmeViewerCard: React.FC<ReadmeViewerCardProps> = ({
           </div>
         </div>
       )}
+
+      {/* 7. GitHub Add-a-README Helper Modal */}
+      <GitHubAddReadmeModal
+        isOpen={showGitHubAddReadmeModal}
+        onClose={() => setShowGitHubAddReadmeModal(false)}
+        markdown={currentMarkdown}
+        repoName={selectedRepo}
+      />
 
     </div>
   );

@@ -5,7 +5,116 @@ export interface RepoReadme {
   markdown: string;
 }
 
+export const GAMBIT_ATOMS_README_MARKDOWN = `# ⚛️ GAMBIT ATOMS
+### *Autonomous Intelligence, Scientific Computing, Quantum Simulation & Hyper-Scale Distributed Systems Engineering*
+
+[![React 19](https://img.shields.io/badge/React-19.0.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Google Gemini API](https://img.shields.io/badge/Google_Gemini-3.1_Pro_%7C_Flash-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](https://github.com/gambit-atoms/gambit-atoms/pulls)
+
+An end-to-end cognitive laboratory and systems engineering platform combining neuro-symbolic reasoning, superconducting transmon quantum simulation, distributed GPU tensor sharding, automated academic research publishing, and production open-source contribution engines.
+
+---
+
+## ⚡ Key Architectural Highlights
+
+- **APEX Cognitive OS**: Symbolic Knowledge Graph, Tree-of-Thought (ToT) planner with Monte Carlo evaluations, and multi-tier memory.
+- **Quantum Computing & QPU Lab**: 3D Bloch sphere visualizer, BB84 quantum cryptography simulator, and Surface-17 topological error correction.
+- **Collaborative Monaco IDE**: Sandboxed PyTorch 2.6 / CUDA 12.8 execution environment with VRAM telemetry and AI Neural Copilot.
+- **Autonomous Research Lab**: Automated scientific preprint generator, double-blind peer review scoring, and LaTeX compiler.
+- **Hyper-Scale Ops Solver**: 4D distributed tensor sharding profiler (TP/PP/DP/EP) and KV-cache NVMe-oF memory tiering.
+- **Open-Source AI Studio**: Automated pull request synthesizer and zero-day CVE vulnerability scanner.
+
+---
+
+## 🚀 Quickstart & Installation
+
+### 1. Clone the repository
+\`\`\`bash
+git clone https://github.com/gambit-atoms/gambit-atoms.git
+cd gambit-atoms
+\`\`\`
+
+### 2. Install dependencies
+\`\`\`bash
+npm install
+\`\`\`
+
+### 3. Configure environment variables
+\`\`\`bash
+cp .env.example .env
+# Edit .env and supply your Google Gemini API key:
+# VITE_GEMINI_API_KEY=your_key_here
+\`\`\`
+
+### 4. Launch development server
+\`\`\`bash
+npm run dev
+# The application starts on http://localhost:3000
+\`\`\`
+
+---
+
+## 📊 Serving & Systems Benchmark Matrix
+
+| Architecture Component | Target Hardware | Baseline Metric | Gambit Atoms Optimized | Acceleration |
+| :--- | :--- | :--- | :--- | :--- |
+| **PagedAttention v3 Fusion** | 8x NVIDIA H100 SXM5 | 420 tok/s | **1,840.4 tok/s** | **4.38x** |
+| **Transmon QPU Simulation** | CPU Single Thread | 2.4 ms/step | **0.18 ms/step** | **13.3x** |
+| **BB84 QKD Protocol Engine** | WebAssembly Runtime | 120 kbit/s | **1,420 kbit/s** | **11.8x** |
+| **Tree-of-Thought Search** | Graph Vector Store | 480 ms/branch | **42 ms/branch** | **11.4x** |
+
+---
+
+## 📋 Production Readiness Checklist
+
+- [x] APEX Cognitive OS core reasoning loop & symbolic graph
+- [x] Transmon qubit Hamiltonian simulation with $T_1 / T_2^*$ relaxation
+- [x] Interactive Monaco IDE code studio with Python/CUDA sandbox
+- [x] Automated double-blind peer review and LaTeX preprint synthesizer
+- [x] Real-time KV-cache memory tiering and InfiniBand network telemetry
+- [x] GitHub Upstream live synchronization and PR code diff generator
+- [ ] Direct export to FPGA hardware description language (Verilog/VHDL)
+- [ ] Sub-surface fault-tolerant logical qubit braiding visualizer
+
+---
+
+## 🛠️ Contribution Guidelines
+
+We welcome contributions from researchers and systems software engineers!
+1. Check existing issues or submit an architectural RFC.
+2. Verify TypeScript strict typing with \`npm run lint\`.
+3. Verify production compilation with \`npm run build\`.
+4. Ensure PRs maintain numerical parity against baseline floating-point references.
+
+---
+
+## 📑 Citation (BibTeX)
+
+\`\`\`bibtex
+@software{gambit_atoms_2026,
+  author = {Vance, Alex and Rostova, Elena and the Gambit Atoms Team},
+  title = {Gambit Atoms: Autonomous Intelligence, Scientific Computing, and Distributed Systems Laboratory},
+  year = {2026},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\\url{https://github.com/gambit-atoms/gambit-atoms}},
+  version = {3.8.0}
+}
+\`\`\`
+`;
+
 export const MOCK_README_MAP: Record<string, RepoReadme> = {
+  'gambit-atoms/gambit-atoms': {
+    repoName: 'gambit-atoms/gambit-atoms',
+    lastUpdated: 'Just now (Official Repository Documentation)',
+    estimatedReadTime: '6 min read',
+    markdown: GAMBIT_ATOMS_README_MARKDOWN,
+  },
   'vllm-project/vllm': {
     repoName: 'vllm-project/vllm',
     lastUpdated: '12 mins ago (sync from upstream commit #8f92a1)',

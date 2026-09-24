@@ -15,9 +15,9 @@ import { useAdaptiveTheme } from '../context/ThemeContext';
 export const OpenSourceTab: React.FC = () => {
   const { currentTheme } = useAdaptiveTheme();
 
-  const [targetRepo, setTargetRepo] = useState('vllm-project/vllm');
-  const [issueDescription, setIssueDescription] = useState('Optimize multi-modal KV-cache memory fragmentation for Vision Language-Action token streams during high-concurrency inference.');
-  const [optimizationGoal, setOptimizationGoal] = useState('Reduce memory overhead by 30% and improve token throughput by 4x.');
+  const [targetRepo, setTargetRepo] = useState('gambit-atoms/gambit-atoms');
+  const [issueDescription, setIssueDescription] = useState('Enhance PagedAttention v3 kernel with persistent register-level float4 caching and zero-copy NVMe-oF memory tiering.');
+  const [optimizationGoal, setOptimizationGoal] = useState('Achieve sub-15ms TTFT and 1,840+ tokens/sec throughput across 8x H100 GPU clusters.');
   const [loading, setLoading] = useState(false);
   const [pr, setPr] = useState<OpenSourcePR | null>(null);
 
@@ -181,7 +181,10 @@ export const OpenSourceTab: React.FC = () => {
 
   const handleSelectRepoFromManager = (repoFullName: string) => {
     setTargetRepo(repoFullName);
-    if (repoFullName.includes('vllm')) {
+    if (repoFullName.includes('gambit-atoms')) {
+      setIssueDescription('Enhance PagedAttention v3 kernel with persistent register-level float4 caching and zero-copy NVMe-oF memory tiering.');
+      setOptimizationGoal('Achieve sub-15ms TTFT and 1,840+ tokens/sec throughput across 8x H100 GPU clusters.');
+    } else if (repoFullName.includes('vllm')) {
       setIssueDescription('Optimize multi-modal KV-cache memory fragmentation for Vision Language-Action token streams during high-concurrency inference.');
       setOptimizationGoal('Reduce memory overhead by 30% and improve token throughput by 4x.');
     } else if (repoFullName.includes('DeepSeek')) {
@@ -357,6 +360,7 @@ export const OpenSourceTab: React.FC = () => {
                   color: currentTheme.palette.textPrimary,
                 }}
               >
+                <option value="gambit-atoms/gambit-atoms">gambit-atoms/gambit-atoms (Current App)</option>
                 <option value="vllm-project/vllm">vllm-project/vllm</option>
                 <option value="deepseek-ai/DeepSeek-V3">deepseek-ai/DeepSeek-V3</option>
                 <option value="openai/triton">openai/triton</option>
