@@ -1,0 +1,8 @@
+{
+  "name": "Gambit Atoms",
+  "description": "An advanced AI platform designer, research publisher, open source contributor, and global-scale engineering solver featuring Evolution Methods, Agentic RAG, Chain-of-Agents, and VLA models with a modular collaborative IDE workspace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
